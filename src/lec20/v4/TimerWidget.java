@@ -1,4 +1,4 @@
-package lec22.v1;
+package lec20.v4;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -13,6 +13,7 @@ public class TimerWidget extends JPanel implements ActionListener {
 	private double elapsed;
 	private JButton start_stop;
 	private JLabel elapsed_display;
+	private BackgroundTimer background_timer;
 	
 	public TimerWidget() {
 		elapsed = 0.0;
@@ -32,14 +33,21 @@ public class TimerWidget extends JPanel implements ActionListener {
 		add(start_stop);
 		add(reset);
 	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		if (cmd.equals("start")) {
+			background_timer = new BackgroundTimer(this);
+			background_timer.start();
 			start_stop.setText("Stop");
 			start_stop.setActionCommand("stop");
 		} else if (cmd.equals("stop")) {
+			background_timer.halt();
+			try {
+				background_timer.join();
+			} catch (InterruptedException e1) {
+			}
 			start_stop.setText("Start");
 			start_stop.setActionCommand("start");
 		} else if (cmd.equals("reset")) {
@@ -47,4 +55,10 @@ public class TimerWidget extends JPanel implements ActionListener {
 			elapsed_display.setText("0.0");
 		}
 	}
+	
+	public void updateElapsed(double delta) {
+		elapsed += delta;
+		elapsed_display.setText(String.format("%5.2f", elapsed));
+	}
 }
+

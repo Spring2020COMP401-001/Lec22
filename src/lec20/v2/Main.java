@@ -1,4 +1,4 @@
-package lec22.v6;
+package lec20.v2;
 
 import javax.swing.JFrame;
 

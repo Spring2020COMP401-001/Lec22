@@ -1,4 +1,4 @@
-package lec22.v3;
+package lec20.v4;
 
 import javax.swing.SwingUtilities;
 
@@ -33,20 +33,22 @@ public class BackgroundTimer extends Thread {
 		SwingUtilities.invokeLater(new WidgetUpdater(tw, delta));
 		start = end;
 	}
+
+	private class WidgetUpdater implements Runnable {
+
+		private TimerWidget tw;
+		private double delta;
+		
+		public WidgetUpdater(TimerWidget tw, double delta) {
+			this.tw = tw;
+			this.delta = delta;
+		}
+		
+		@Override
+		public void run() {
+			tw.updateElapsed(delta);
+		}
+	}
+
 }
 
-class WidgetUpdater implements Runnable {
-
-	private TimerWidget tw;
-	private double delta;
-	
-	public WidgetUpdater(TimerWidget tw, double delta) {
-		this.tw = tw;
-		this.delta = delta;
-	}
-	
-	@Override
-	public void run() {
-		tw.updateElapsed(delta);
-	}
-}

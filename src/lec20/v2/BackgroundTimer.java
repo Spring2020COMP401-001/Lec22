@@ -1,4 +1,4 @@
-package lec22.v2;
+package lec20.v2;
 
 public class BackgroundTimer extends Thread {
 	private boolean done;
