@@ -1,4 +1,4 @@
-package lec20.v6;
+package lec22.v2;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;

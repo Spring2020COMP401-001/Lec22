@@ -1,4 +1,4 @@
-package lec20.v3;
+package lec22.v6;
 
 import javax.swing.SwingUtilities;
 
@@ -24,29 +24,21 @@ public class BackgroundTimer extends Thread {
 			} catch (InterruptedException e) {
 			}
 			long end = System.currentTimeMillis();
-			double delta = ((double) (end-start) / 1000.0);
-			SwingUtilities.invokeLater(new WidgetUpdater(tw, delta));
+			final double delta = ((double) (end-start) / 1000.0);
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					tw.updateElapsed(delta);
+				}
+			});
 			start = end;
 		}
 		long end = System.currentTimeMillis();
-		double delta = ((double) (end-start) / 1000.0);
-		SwingUtilities.invokeLater(new WidgetUpdater(tw, delta));
+		final double delta = ((double) (end-start) / 1000.0);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				tw.updateElapsed(delta);
+			}
+		});
 		start = end;
-	}
-}
-
-class WidgetUpdater implements Runnable {
-
-	private TimerWidget tw;
-	private double delta;
-	
-	public WidgetUpdater(TimerWidget tw, double delta) {
-		this.tw = tw;
-		this.delta = delta;
-	}
-	
-	@Override
-	public void run() {
-		tw.updateElapsed(delta);
 	}
 }
